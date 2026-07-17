@@ -47,13 +47,18 @@
     var(--royal) 55%,
     #0e86d9 115%
   );
-  --grad-deep-band: linear-gradient(
-    120deg,
-    #150a5e 0%,
-    #122a80 42%,
-    #0a3d9c 76%,
-    #0b53b8 100%
-  );
+  --grad-deep-band:
+    radial-gradient(
+      ellipse 110% 150% at 92% -20%,
+      rgba(18, 181, 245, 0.24),
+      transparent 52%
+    ),
+    radial-gradient(
+      ellipse 80% 130% at -8% 125%,
+      rgba(43, 106, 214, 0.38),
+      transparent 58%
+    ),
+    linear-gradient(155deg, #0a1338 0%, #0c2258 55%, #0d2f7a 100%);
   --grad-hero-glow:
     radial-gradient(
       ellipse 72% 58% at 78% -12%,
@@ -98,7 +103,7 @@
     0 6px 20px rgba(11, 13, 18, 0.035);
   --shadow-lift: 0 2px 6px rgba(11, 13, 18, 0.04),
     0 14px 36px rgba(10, 61, 156, 0.08);
-  --shadow-band: 0 24px 64px -24px rgba(23, 11, 102, 0.45);
+  --shadow-band: 0 24px 64px -24px rgba(8, 18, 64, 0.5);
 }
 
 @media (prefers-reduced-motion: reduce) {

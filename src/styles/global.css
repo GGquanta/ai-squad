@@ -105,6 +105,126 @@
   }
 }
 
+@layer components {
+  /* 按钮体系：纵向渐变 + 顶部内高光 + 分层投影，hover 上浮、active 回落 */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    height: 2.9rem;
+    padding-inline: 1.25rem;
+    border-radius: var(--btn-radius);
+    font-size: 0.95rem;
+    font-weight: 500;
+    line-height: 1;
+    white-space: nowrap;
+    transition:
+      transform var(--duration-fast) var(--ease-out),
+      box-shadow var(--duration-fast) var(--ease-out),
+      border-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out);
+  }
+
+  .btn:hover {
+    transform: translateY(-1.5px);
+  }
+
+  .btn:active {
+    transform: translateY(0);
+    transition-duration: 60ms;
+  }
+
+  .btn-primary {
+    color: #fff;
+    background-image: linear-gradient(
+      180deg,
+      #1355c4 0%,
+      #0a3d9c 62%,
+      #093a90 100%
+    );
+    border: 1px solid #093684;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 1px 2px rgba(9, 24, 60, 0.16),
+      0 10px 24px -8px rgba(10, 61, 156, 0.55);
+  }
+
+  .btn-primary:hover {
+    background-image: linear-gradient(
+      180deg,
+      #1a63dd 0%,
+      #0d47b0 62%,
+      #0a3f9d 100%
+    );
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.26),
+      0 2px 4px rgba(9, 24, 60, 0.16),
+      0 14px 30px -8px rgba(10, 61, 156, 0.6);
+  }
+
+  .btn-primary:active {
+    background-image: linear-gradient(180deg, #0e46ab 0%, #093a90 100%);
+    box-shadow:
+      inset 0 1px 2px rgba(5, 16, 45, 0.32),
+      0 1px 2px rgba(9, 24, 60, 0.2);
+  }
+
+  .btn-secondary {
+    color: var(--color-text);
+    background-image: linear-gradient(180deg, #ffffff, #f6f8fb);
+    border: 1px solid var(--hairline-strong);
+    box-shadow:
+      inset 0 1px 0 #fff,
+      0 1px 2px rgba(11, 13, 18, 0.04),
+      0 6px 16px -6px rgba(11, 13, 18, 0.1);
+  }
+
+  .btn-secondary:hover {
+    color: var(--color-structure);
+    border-color: var(--hairline-royal);
+    background-image: linear-gradient(180deg, #ffffff, #f2f6fd);
+    box-shadow:
+      inset 0 1px 0 #fff,
+      0 2px 4px rgba(11, 13, 18, 0.05),
+      0 10px 22px -6px rgba(10, 61, 156, 0.16);
+  }
+
+  .btn-secondary:active {
+    background-image: linear-gradient(180deg, #f2f5fa, #eef2f9);
+    box-shadow:
+      inset 0 1px 3px rgba(11, 13, 18, 0.08),
+      0 1px 2px rgba(11, 13, 18, 0.04);
+  }
+
+  /* 仅深色横幅使用的白底反色按钮 */
+  .btn-inverse {
+    color: var(--color-deep);
+    background-image: linear-gradient(180deg, #ffffff 0%, #eaf1fd 100%);
+    border: 1px solid rgba(255, 255, 255, 0.85);
+    box-shadow:
+      inset 0 1px 0 #fff,
+      0 1px 3px rgba(4, 10, 40, 0.35),
+      0 12px 28px -8px rgba(4, 10, 40, 0.5);
+  }
+
+  .btn-inverse:hover {
+    background-image: linear-gradient(180deg, #ffffff, #f2f7ff);
+    box-shadow:
+      inset 0 1px 0 #fff,
+      0 2px 5px rgba(4, 10, 40, 0.3),
+      0 16px 34px -8px rgba(18, 181, 245, 0.38);
+  }
+
+  .btn-inverse:active {
+    background-image: linear-gradient(180deg, #eef3fc, #e6eefb);
+    box-shadow:
+      inset 0 1px 3px rgba(4, 10, 40, 0.18),
+      0 1px 2px rgba(4, 10, 40, 0.3);
+  }
+}
+
 @layer utilities {
   .page-container {
     width: min(100% - var(--page-pad) * 2, var(--page-max));
@@ -161,6 +281,21 @@
     font-weight: 400;
     letter-spacing: 0.08em;
     font-variant-numeric: tabular-nums;
+  }
+
+  /* 荧光笔式注记：文字下半浮起 photon 淡彩 */
+  .hl-note {
+    padding: 0.05em 0.16em;
+    margin-inline: 0.05em;
+    font-weight: 500;
+    color: var(--color-text);
+    background-image: linear-gradient(
+      180deg,
+      transparent 58%,
+      rgba(18, 181, 245, 0.24) 58%
+    );
+    -webkit-box-decoration-break: clone;
+    box-decoration-break: clone;
   }
 
   .hairline-t {

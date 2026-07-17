@@ -102,40 +102,43 @@ export function JoinUs() {
         ))}
       </div>
 
-      {/* 全页唯一深色点睛：深蓝渐变 CTA 横幅 */}
+      {/* 全页唯一深色点睛：深海蓝 CTA 横幅，左文右钮编辑式布局 */}
       <Reveal delay={0.08}>
         <div
-          className="relative mt-20 overflow-hidden rounded-[1.25rem] px-6 py-14 text-center shadow-[var(--shadow-band)] sm:px-10 md:py-16"
+          className="relative mt-20 overflow-hidden rounded-[1.25rem] shadow-[var(--shadow-band)]"
           style={{ backgroundImage: 'var(--grad-deep-band)' }}
         >
           <div
-            className="pointer-events-none absolute inset-0"
-            style={{
-              backgroundImage:
-                'radial-gradient(ellipse 62% 110% at 84% -18%, rgba(18, 181, 245, 0.3), transparent 62%), radial-gradient(ellipse 40% 80% at 8% 118%, rgba(18, 181, 245, 0.14), transparent 58%)',
-            }}
+            className="pointer-events-none absolute inset-0 opacity-50 [background-image:radial-gradient(circle,rgba(255,255,255,0.12)_1px,transparent_1.5px)] [background-size:24px_24px] [mask-image:radial-gradient(ellipse_90%_120%_at_85%_0%,#000_25%,transparent_78%)]"
             aria-hidden
           />
           <div
-            className="pointer-events-none absolute inset-0 opacity-60 [background-image:radial-gradient(circle,rgba(255,255,255,0.13)_1px,transparent_1.5px)] [background-size:22px_22px] [mask-image:radial-gradient(ellipse_80%_100%_at_50%_0%,#000_30%,transparent_85%)]"
+            className="pointer-events-none absolute inset-x-0 top-0 h-px bg-[rgba(255,255,255,0.16)]"
             aria-hidden
           />
 
-          <h3 className="relative text-balance text-[clamp(1.5rem,1.2rem+1.6vw,2.2rem)] font-semibold tracking-[-0.02em] text-[var(--band-text)]">
-            {join.cta.label}
-          </h3>
-          <p className="relative mx-auto mt-4 max-w-2xl text-[0.95rem] leading-[1.9] text-[var(--band-text-dim)]">
-            {join.cta.note}
-          </p>
-          <a
-            href={siteMeta.github}
-            target="_blank"
-            rel="noreferrer"
-            className="group relative mt-9 inline-flex items-center gap-2 rounded-[var(--btn-radius)] bg-white py-3 pl-5 pr-4 text-[0.95rem] font-medium text-[var(--color-deep)] transition-[transform,box-shadow] duration-[var(--duration-fast)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover:shadow-[0_10px_28px_rgba(4,10,40,0.35)]"
-          >
-            {join.cta.action.label}
-            <IconArrowUpRight className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
+          <div className="relative grid items-center gap-9 px-7 py-12 sm:px-12 md:py-14 lg:grid-cols-[minmax(0,1fr)_auto] lg:gap-14">
+            <div>
+              <p className="mono-label uppercase tracking-[0.14em] text-[rgba(139,196,255,0.85)]">
+                {join.cta.tag}
+              </p>
+              <h3 className="mt-3 text-balance text-[clamp(1.5rem,1.2rem+1.6vw,2.2rem)] font-semibold tracking-[-0.02em] text-[var(--band-text)]">
+                {join.cta.label}
+              </h3>
+              <p className="mt-4 max-w-2xl text-[0.95rem] leading-[1.9] text-[var(--band-text-dim)]">
+                {join.cta.note}
+              </p>
+            </div>
+            <a
+              href={siteMeta.github}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-inverse group justify-self-start lg:justify-self-end"
+            >
+              {join.cta.action.label}
+              <IconArrowUpRight className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </div>
         </div>
       </Reveal>
     </Section>

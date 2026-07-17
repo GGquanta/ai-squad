@@ -32,7 +32,7 @@
 渐变 token：
 
 - `--grad-ink-text`：navy → royal → 微量浅蓝，仅用于 Hero 第二行标题墨字
-- `--grad-deep-band`：navy → royal，仅用于结尾 CTA 横幅
+- `--grad-deep-band`：深海蓝底（#0A1338 → #0D2F7A，无紫味）+ photon / royal 双侧径向光晕，仅用于结尾 CTA 横幅
 - `--grad-hero-glow`：photon 低透明径向光 + paper → mist 纵向过渡
 
 禁止：大面积紫色渐变、过重玻璃拟态、霓虹发光堆叠。
@@ -57,7 +57,16 @@
 - 区块垂直间距 `clamp(6rem, 12vw, 9.5rem)`
 - 区块头部：桌面端标题左 / 导语右的编辑式双栏，移动端顺排
 - 卡片圆角 `1rem`；按钮圆角 `0.625rem`；CTA 横幅圆角 `1.25rem`
-- 职责区为编辑式索引行列表（非卡片），发丝行分隔；团队统计为大数字行（发丝线分隔，无盒卡）
+- 职责区为编辑式索引行列表（非卡片），发丝行分隔
+- 团队诙谐段落为白底引言卡：大号「 装饰 + `.hl-note` 荧光笔注记（photon 淡彩下划高亮，不用括号）
+
+## 按钮体系
+
+- 统一 `.btn` 基类（高 2.9rem、圆角 `--btn-radius`），hover 上浮 1.5px、active 回落按压
+- `.btn-primary`：royal 纵向渐变 + 顶部内高光 + royal 投影，hover 提亮
+- `.btn-secondary`：白 → 雾灰双层渐变 + 发丝线描边，hover 转 royal 边与字色
+- `.btn-inverse`：白底反色（文字 navy），仅深色 CTA 横幅使用，hover 带 photon 泛光
+- 不使用纯平面单色按钮；主按钮内箭头 hover 右移 0.5
 
 ## 图标
 
@@ -69,6 +78,7 @@
 
 - 签名缓动：`cubic-bezier(0.22, 1, 0.36, 1)`
 - Hero：标题逐行遮罩上升（约 900ms、错峰 100ms），其余元素淡入上移错峰；底部滚动指示线循环提示
+- Hero 右侧「量子核」：自研 Canvas 伪 3D（fibonacci 点阵球 + 三轨道环 + 游动光子），缓慢自转 + 指针倾斜视差；lg 以下隐藏，离屏暂停，reduced-motion 呈静态帧；不引入 three.js
 - 入场：opacity + translateY(14–16px)，约 560–700ms，IntersectionObserver 触发一次
 - Hover：约 160ms；行列表 hover 位移 + 序号变 photon + 行尾箭头浮现；按钮箭头微位移
 - Nav：当前区块 photon 下划线（IntersectionObserver），底缘 royal → photon 滚动进度线（rAF 节流）
@@ -86,6 +96,7 @@
 
 ## 深色 CTA 横幅（唯一深色区块）
 
-- 背景 `--grad-deep-band` + photon 径向光晕 + 白色微点阵（mask 渐隐）
-- 文字用 `--band-text` / `--band-text-dim`；按钮为白底反色（文字 navy）
+- 背景 `--grad-deep-band`（深海蓝底 + 双侧光晕）+ 白色微点阵（mask 渐隐）+ 顶缘 1px 白色微光边
+- 编辑式布局：左侧 mono 标签 + 标题 + 说明，右侧 `.btn-inverse` 按钮；移动端顺排左对齐
+- 文字用 `--band-text` / `--band-text-dim`
 - 不得在其他区块复用深色底

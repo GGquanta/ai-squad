@@ -1,6 +1,7 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
 import { ParticleField } from '@/components/effects/ParticleField'
+import { QuantumCore } from '@/components/effects/QuantumCore'
 import { IconArrowRight } from '@/components/icons'
 import { hero, siteMeta } from '@/data/content'
 import { usePrefersReducedMotion } from '@/hooks/usePrefersReducedMotion'
@@ -75,7 +76,17 @@ export function Hero() {
       <ParticleField className="opacity-80" />
 
       <div className="page-container relative flex min-h-[100svh] flex-col">
-        <div className="flex flex-1 flex-col justify-center pb-16 pt-28 md:pt-32">
+        {/* 右侧量子核：自研 Canvas 伪 3D，lg 以下隐藏 */}
+        <div
+          className="pointer-events-none absolute right-[-3.5rem] top-1/2 z-0 hidden w-[min(40vw,520px)] -translate-y-1/2 lg:block xl:right-[-1.5rem]"
+          aria-hidden
+        >
+          <FadeIn delay={0.5}>
+            <QuantumCore className="aspect-square w-full" />
+          </FadeIn>
+        </div>
+
+        <div className="relative z-10 flex flex-1 flex-col justify-center pb-16 pt-28 md:pt-32">
           <FadeIn delay={0}>
             <p className="eyebrow mb-7">
               <span className="eyebrow-dot" aria-hidden />
@@ -98,24 +109,18 @@ export function Hero() {
 
           <FadeIn delay={0.46}>
             <div className="mt-10 flex flex-wrap gap-3">
-              <a
-                href={hero.primaryCta.href}
-                className="group inline-flex items-center justify-center gap-2 rounded-[var(--btn-radius)] bg-[var(--color-structure)] py-3 pl-5 pr-4 text-[0.95rem] font-medium text-white shadow-[var(--shadow-soft)] transition-[transform,box-shadow,background] duration-[var(--duration-fast)] hover:-translate-y-0.5 hover:bg-[var(--color-deep)] hover:shadow-[var(--shadow-lift)]"
-              >
+              <a href={hero.primaryCta.href} className="btn btn-primary group">
                 {hero.primaryCta.label}
                 <IconArrowRight className="h-4 w-4 transition-transform duration-[var(--duration-fast)] group-hover:translate-x-0.5" />
               </a>
-              <a
-                href={hero.secondaryCta.href}
-                className="inline-flex items-center justify-center rounded-[var(--btn-radius)] border border-[var(--hairline-strong)] bg-white/70 px-5 py-3 text-[0.95rem] font-medium text-[var(--color-text)] backdrop-blur-sm transition-[transform,border-color,background] duration-[var(--duration-fast)] hover:-translate-y-0.5 hover:border-[var(--hairline-royal)] hover:bg-white"
-              >
+              <a href={hero.secondaryCta.href} className="btn btn-secondary">
                 {hero.secondaryCta.label}
               </a>
             </div>
           </FadeIn>
         </div>
 
-        <FadeIn delay={0.65}>
+        <FadeIn delay={0.65} className="relative z-10">
           <div className="flex items-end justify-between gap-6 pb-8">
             <p className="mono-label max-w-[60%] text-[var(--color-text-muted)]">
               {siteMeta.company} · {siteMeta.companyEn}
