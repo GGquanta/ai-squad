@@ -3,6 +3,7 @@
 
 @theme {
   --font-sans: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', monospace;
   --color-paper: #fafaf9;
   --color-mist: #f4f6f8;
   --color-graphite: #0b0d12;
@@ -44,6 +45,18 @@
     text-rendering: optimizeLegibility;
   }
 
+  /* 全站固定胶片噪点层：静态不随滚动，去除数字平板感 */
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: 90;
+    pointer-events: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+    opacity: 0.026;
+  }
+
   #root {
     min-height: 100vh;
   }
@@ -51,6 +64,11 @@
   ::selection {
     background: rgba(18, 181, 245, 0.22);
     color: var(--color-deep);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--photon);
+    outline-offset: 3px;
   }
 
   a {
@@ -105,21 +123,200 @@
     font-variant-numeric: tabular-nums;
   }
 
+  /* 编辑式 mono 索引标签（Quantum × AI 等 eyebrow 文本） */
   .eyebrow {
     display: inline-flex;
     align-items: center;
-    gap: 0.5rem;
-    font-size: var(--size-label);
-    font-weight: 560;
-    letter-spacing: 0.06em;
+    gap: 0.625rem;
+    font-family: var(--font-mono);
+    font-size: var(--size-mono-label);
+    font-weight: 500;
+    letter-spacing: 0.14em;
     text-transform: uppercase;
     color: var(--color-structure);
   }
 
-  .eyebrow::before {
+  /* 呼吸光点：transform + opacity 扩散环 */
+  .eyebrow-dot {
+    position: relative;
+    width: 0.4375rem;
+    height: 0.4375rem;
+    border-radius: 999px;
+    background: var(--photon);
+    flex: none;
+  }
+
+  .eyebrow-dot::after {
     content: '';
-    width: 1.25rem;
-    height: 1px;
-    background: linear-gradient(90deg, var(--photon), transparent);
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: rgba(18, 181, 245, 0.4);
+    animation: dot-ping 2.8s var(--ease-soft) infinite;
+  }
+
+  .mono-label {
+    font-family: var(--font-mono);
+    font-size: var(--size-mono-label);
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .hairline-t {
+    border-top: 1px solid var(--hairline);
+  }
+
+  /* 发丝线卡基底 */
+  .card {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--hairline);
+    border-radius: var(--card-radius);
+  }
+
+  /* 品牌蓝渐变墨字 */
+  .grad-text {
+    background-image: var(--grad-ink-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  /* hover 渐变描边环（photon → royal → navy） */
+  .gradient-ring::before {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: calc(var(--card-radius) + 1px);
+    padding: 1px;
+    background: linear-gradient(
+      135deg,
+      rgba(18, 181, 245, 0.75),
+      rgba(10, 61, 156, 0.65) 55%,
+      rgba(23, 11, 102, 0.55)
+    );
+    -webkit-mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask:
+      linear-gradient(#000 0 0) content-box,
+      linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--duration-fast) var(--ease-out);
+    pointer-events: none;
+  }
+
+  .gradient-ring:hover::before,
+  .gradient-ring:focus-within::before {
+    opacity: 1;
+  }
+
+  /* 极淡蓝点阵纹理（产品区背景） */
+  .dot-grid {
+    background-image: radial-gradient(
+      circle,
+      rgba(10, 61, 156, 0.07) 1px,
+      transparent 1.5px
+    );
+    background-size: 24px 24px;
+  }
+
+  /* 蓝图网格线（Hero 背景），mask 向下渐隐 */
+  .blueprint-grid {
+    background-image:
+      linear-gradient(to right, rgba(10, 61, 156, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(10, 61, 156, 0.05) 1px, transparent 1px);
+    background-size: 52px 52px;
+    -webkit-mask-image: radial-gradient(
+      ellipse 100% 92% at 64% 0%,
+      #000 18%,
+      transparent 74%
+    );
+    mask-image: radial-gradient(
+      ellipse 100% 92% at 64% 0%,
+      #000 18%,
+      transparent 74%
+    );
+  }
+
+  /* Hero 底部滚动指示线 */
+  .scroll-line {
+    position: relative;
+    width: 1px;
+    height: 3rem;
+    background: var(--hairline-strong);
+    overflow: hidden;
+  }
+
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 42%;
+    background: linear-gradient(180deg, transparent, var(--photon));
+    animation: scroll-hint 2.4s var(--ease-soft) infinite;
+  }
+
+  /* 愿景区量子轨道装饰的缓慢自转 */
+  .orbit-spin {
+    animation: orbit-spin 72s linear infinite;
+  }
+
+  /* 移动端菜单项错峰入场 */
+  .nav-item-in {
+    animation: nav-item-in 0.4s var(--ease-out) both;
+  }
+}
+
+@keyframes dot-ping {
+  0% {
+    transform: scale(1);
+    opacity: 0.85;
+  }
+  70%,
+  100% {
+    transform: scale(2.7);
+    opacity: 0;
+  }
+}
+
+@keyframes scroll-hint {
+  0% {
+    transform: translateY(-110%);
+  }
+  60%,
+  100% {
+    transform: translateY(260%);
+  }
+}
+
+@keyframes orbit-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes nav-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .eyebrow-dot::after,
+  .scroll-line::after,
+  .orbit-spin,
+  .nav-item-in {
+    animation: none;
   }
 }

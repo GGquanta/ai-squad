@@ -9,7 +9,7 @@
 - Vite 8 + React 19 + TypeScript（strict）
 - Tailwind CSS 4（`@tailwindcss/vite`）
 - Framer Motion 12：仅用 opacity / transform；**禁止** `layout` / `layoutId` / `popLayout`
-- 字体：`@fontsource/dm-sans` + `@fontsource/noto-sans-sc`
+- 字体：`@fontsource/dm-sans` + `@fontsource/dm-mono`（索引 / 标签 / 大数字） + `@fontsource/noto-sans-sc`
 - 粒子：自研 Canvas 组件，不引入 three.js
 - 部署：`wrangler.jsonc` + `npm run deploy`
 

@@ -35,53 +35,76 @@ function CountUp({ value, suffix }: { value: number; suffix: string }) {
   return (
     <span ref={ref} className="tabular">
       {shown}
-      {suffix}
+      {suffix ? (
+        <span className="ml-0.5 align-baseline text-[0.4em] font-medium tracking-normal text-[var(--color-text-secondary)]">
+          {suffix}
+        </span>
+      ) : null}
     </span>
   )
 }
 
 export function Team() {
   return (
-    <Section id="team" eyebrow={team.eyebrow} title={team.title}>
-      <div className="grid gap-10 lg:grid-cols-[1.4fr_1fr] lg:gap-14">
+    <Section id="team" index="01" eyebrow={team.eyebrow} title={team.title}>
+      <div className="grid gap-6 lg:grid-cols-2 lg:gap-16">
         <Reveal>
-          <div className="space-y-5 text-[length:var(--size-body)] leading-[1.85] text-[var(--color-text-secondary)]">
-            <p>{team.mission}</p>
-            <p>{team.composition}</p>
-          </div>
+          <p className="text-[length:var(--size-body)] leading-[1.9] text-[var(--color-text-secondary)]">
+            {team.mission}
+          </p>
         </Reveal>
-
         <Reveal delay={0.08}>
-          <div className="grid grid-cols-3 gap-3 rounded-[var(--card-radius)] border border-[var(--color-border)] bg-white p-5 shadow-[var(--shadow-soft)] sm:gap-4 sm:p-6">
-            {team.stats.map((stat) => (
-              <div key={stat.label} className="text-center">
-                <p className="text-[1.75rem] font-semibold tracking-[-0.03em] text-[var(--color-structure)] sm:text-[2rem]">
-                  <CountUp value={stat.value} suffix={stat.suffix} />
-                </p>
-                <p className="mt-1 text-[0.8rem] text-[var(--color-text-muted)]">
-                  {stat.label}
-                </p>
-              </div>
-            ))}
-          </div>
+          <p className="text-[length:var(--size-body)] leading-[1.9] text-[var(--color-text-secondary)]">
+            {team.composition}
+          </p>
         </Reveal>
       </div>
 
-      <Reveal delay={0.12}>
-        <p className="mt-12 rounded-[var(--card-radius)] border border-[var(--color-border)] bg-[linear-gradient(135deg,rgba(18,181,245,0.06),rgba(10,61,156,0.04))] px-5 py-5 text-[0.98rem] leading-[1.9] text-[var(--color-text-secondary)] sm:px-7 sm:py-6">
-          {team.playful.prefix}
-          {team.playful.segments.map((seg, i) => (
-            <span key={seg.brands}>
-              {i > 0 ? '；是' : ' '}
-              <span className="font-medium text-[var(--color-text)]">{seg.brands}</span>
-              的
-              <span className="relative -top-px ml-0.5 align-baseline text-[0.72em] tracking-wide text-[var(--color-structure)]">
-                [{seg.note}]
-              </span>
-            </span>
+      <Reveal delay={0.1}>
+        <div className="mt-16 grid grid-cols-3 border-t border-[var(--hairline)] pt-8 md:pt-10">
+          {team.stats.map((stat, index) => (
+            <div
+              key={stat.label}
+              className={`${
+                index > 0 ? 'border-l border-[var(--hairline)] pl-5 sm:pl-8' : ''
+              } pr-3`}
+            >
+              <p className="font-mono text-[clamp(2.3rem,1.5rem+3.4vw,3.9rem)] font-medium leading-none tracking-[-0.04em] text-[var(--color-structure)]">
+                <CountUp value={stat.value} suffix={stat.suffix} />
+              </p>
+              <p className="mt-3 text-[0.82rem] text-[var(--color-text-muted)] sm:text-[0.88rem]">
+                {stat.label}
+              </p>
+            </div>
           ))}
-          。
-        </p>
+        </div>
+      </Reveal>
+
+      <Reveal delay={0.14}>
+        <figure className="card mt-16 overflow-hidden bg-[linear-gradient(135deg,rgba(18,181,245,0.05),rgba(255,255,255,0.6)_45%,rgba(10,61,156,0.04))] px-6 py-7 sm:px-9 sm:py-8">
+          <span
+            className="pointer-events-none absolute -top-3 left-3 select-none font-serif text-[6rem] leading-none text-[var(--royal)] opacity-[0.07] sm:text-[7.5rem]"
+            aria-hidden
+          >
+            「
+          </span>
+          <blockquote className="relative text-[0.98rem] leading-[1.95] text-[var(--color-text-secondary)]">
+            {team.playful.prefix}
+            {team.playful.segments.map((seg, i) => (
+              <span key={seg.brands}>
+                {i > 0 ? '；是' : ' '}
+                <span className="font-medium text-[var(--color-text)]">
+                  {seg.brands}
+                </span>
+                的
+                <span className="mono-label relative -top-px ml-1 text-[var(--color-structure)]">
+                  [{seg.note}]
+                </span>
+              </span>
+            ))}
+            。
+          </blockquote>
+        </figure>
       </Reveal>
     </Section>
   )

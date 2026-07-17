@@ -1,15 +1,58 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
+import { LogoMark } from '@/components/icons'
 import { navLinks, siteMeta } from '@/data/content'
 
 export function Nav() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const [active, setActive] = useState<string | null>(null)
+  const progressRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12)
-    onScroll()
+    let raf = 0
+    const update = () => {
+      raf = 0
+      setScrolled(window.scrollY > 12)
+      const doc = document.documentElement
+      const max = doc.scrollHeight - window.innerHeight
+      const progress = max > 0 ? Math.min(1, window.scrollY / max) : 0
+      if (progressRef.current) {
+        progressRef.current.style.transform = `scaleX(${progress})`
+      }
+    }
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update)
+    }
+    update()
     window.addEventListener('scroll', onScroll, { passive: true })
-    return () => window.removeEventListener('scroll', onScroll)
+    window.addEventListener('resize', onScroll, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      window.removeEventListener('scroll', onScroll)
+      window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
+  useEffect(() => {
+    const ids = ['top', ...navLinks.map((link) => link.id)]
+    const sections = ids
+      .map((id) => document.getElementById(id))
+      .filter((el): el is HTMLElement => el !== null)
+
+    // 视口中线附近的区块视为当前区块
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          if (entry.isIntersecting) {
+            const id = entry.target.id
+            setActive(id === 'top' ? null : id)
+          }
+        }
+      },
+      { rootMargin: '-45% 0px -52% 0px', threshold: 0 },
+    )
+    sections.forEach((section) => observer.observe(section))
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
@@ -23,29 +66,46 @@ export function Nav() {
     <header
       className={`fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-[var(--duration-fast)] ${
         scrolled || open
-          ? 'border-b border-[var(--color-border)] bg-[var(--frost)] shadow-[var(--shadow-soft)] backdrop-blur-xl'
+          ? 'border-b border-[var(--hairline)] bg-[var(--frost)] shadow-[var(--shadow-soft)] backdrop-blur-xl'
           : 'bg-transparent'
       }`}
     >
       <div className="page-container flex h-16 items-center justify-between md:h-[4.25rem]">
         <a
           href="#top"
-          className="text-[0.95rem] font-semibold tracking-[-0.01em] text-[var(--color-deep)]"
+          className="flex items-center gap-2.5 text-[var(--color-deep)]"
           onClick={() => setOpen(false)}
         >
-          {siteMeta.brandShort}
+          <LogoMark className="h-6 w-6" />
+          <span className="text-[0.95rem] font-semibold tracking-[-0.01em]">
+            {siteMeta.brandShort}
+          </span>
         </a>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="主导航">
-          {navLinks.map((link) => (
-            <a
-              key={link.id}
-              href={`#${link.id}`}
-              className="text-[0.9rem] text-[var(--color-text-secondary)] transition-colors duration-[var(--duration-fast)] hover:text-[var(--color-structure)]"
-            >
-              {link.label}
-            </a>
-          ))}
+        <nav className="hidden items-center gap-7 md:flex" aria-label="主导航">
+          {navLinks.map((link) => {
+            const isActive = active === link.id
+            return (
+              <a
+                key={link.id}
+                href={`#${link.id}`}
+                aria-current={isActive ? 'true' : undefined}
+                className={`relative py-1 text-[0.9rem] transition-colors duration-[var(--duration-fast)] ${
+                  isActive
+                    ? 'font-medium text-[var(--color-structure)]'
+                    : 'text-[var(--color-text-secondary)] hover:text-[var(--color-structure)]'
+                }`}
+              >
+                {link.label}
+                <span
+                  className={`absolute inset-x-0 -bottom-0.5 h-px origin-left bg-[var(--photon)] transition-transform duration-[var(--duration-enter)] ease-[var(--ease-out)] ${
+                    isActive ? 'scale-x-100' : 'scale-x-0'
+                  }`}
+                  aria-hidden
+                />
+              </a>
+            )
+          })}
         </nav>
 
         <button
@@ -77,21 +137,32 @@ export function Nav() {
       </div>
 
       {open ? (
-        <div className="border-t border-[var(--color-border)] bg-[var(--paper)] md:hidden">
-          <nav className="page-container flex flex-col gap-1 py-4" aria-label="移动导航">
-            {navLinks.map((link) => (
+        <div className="hairline-t bg-[var(--paper)] md:hidden">
+          <nav className="page-container flex flex-col py-4" aria-label="移动导航">
+            {navLinks.map((link, index) => (
               <a
                 key={link.id}
                 href={`#${link.id}`}
-                className="rounded-[var(--btn-radius)] px-3 py-3 text-[1.05rem] text-[var(--color-text)]"
+                className="nav-item-in flex items-center justify-between rounded-[var(--btn-radius)] px-3 py-3.5 text-[1.02rem] text-[var(--color-text)]"
+                style={{ animationDelay: `${index * 45}ms` }}
                 onClick={() => setOpen(false)}
               >
-                {link.label}
+                <span>{link.label}</span>
+                <span className="mono-label text-[var(--color-text-muted)]">
+                  {String(index + 1).padStart(2, '0')}
+                </span>
               </a>
             ))}
           </nav>
         </div>
       ) : null}
+
+      <div className="absolute inset-x-0 bottom-0 h-px" aria-hidden>
+        <div
+          ref={progressRef}
+          className="h-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--royal),var(--photon))]"
+        />
+      </div>
     </header>
   )
 }

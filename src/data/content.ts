@@ -5,6 +5,7 @@ export const siteMeta = {
   brandShort: 'AI 研究小组',
   company: '北京中科国光量子科技有限公司',
   companyBrand: '国光量子',
+  companyEn: 'GGQUANTA',
   tagline: '让量子科研更可及，让 AI 在硬核科学中可信赖',
   github: 'https://github.com/ggquanta',
 } as const
@@ -19,11 +20,12 @@ export const navLinks = [
 
 export const hero = {
   eyebrow: 'Quantum × Artificial Intelligence',
-  title: '中科国光 · AI 研究小组',
+  titleLines: ['中科国光', 'AI 研究小组'],
   lead:
     '我们聚焦人工智能与量子科技的交叉融合，面向科研辅助、知识工程与垂直场景智能体，开展可复现的工程化研究与产品交付。',
   primaryCta: { label: '了解产品', href: '#products' },
   secondaryCta: { label: '加入我们', href: '#join' },
+  scrollHint: 'Scroll',
 } as const
 
 export const team = {
@@ -229,9 +231,14 @@ export const join = {
   cta: {
     label: '了解岗位详情',
     note: '欢迎通过企业邮箱或团队渠道投递简历，并附上你感兴趣的方向与代表性作品。',
+    action: { label: '访问团队 GitHub' },
   },
 } as const
 
 export const footer = {
   note: '本页面用于团队介绍与能力展示，不构成对具体产品交付日期或商务条款的承诺。',
+  columns: {
+    nav: '页面导航',
+    connect: '联系与关注',
+  },
 } as const

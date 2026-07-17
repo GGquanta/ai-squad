@@ -1,4 +1,4 @@
-/* AI 研究小组设计 token — 浅色优雅方案，品牌点缀延续官网三蓝 */
+/* AI 研究小组设计 token — 「纸感编辑部 × 量子蓝图」浅色方案 */
 :root {
   /* Brand blues (from GGQUANTA logo) */
   --ink-navy: #170b66;
@@ -27,24 +27,63 @@
   --color-accent: var(--photon);
   --color-structure: var(--royal);
   --color-deep: var(--ink-navy);
-  --color-border: rgba(11, 13, 18, 0.08);
-  --color-border-strong: rgba(11, 13, 18, 0.14);
+
+  /* Hairlines — 发丝线承担层级，代替重阴影（Linear 模式） */
+  --hairline: rgba(11, 13, 18, 0.08);
+  --hairline-strong: rgba(11, 13, 18, 0.16);
+  --hairline-royal: rgba(10, 61, 156, 0.22);
+  --color-border: var(--hairline);
+  --color-border-strong: var(--hairline-strong);
+
+  /* Deep band — 仅结尾 CTA 横幅使用的深色局部语义 */
+  --band-text: #f6f9ff;
+  --band-text-dim: rgba(224, 234, 255, 0.74);
+  --band-hairline: rgba(255, 255, 255, 0.2);
+
+  /* Gradients */
+  --grad-ink-text: linear-gradient(
+    105deg,
+    var(--ink-navy) 0%,
+    var(--royal) 55%,
+    #0e86d9 115%
+  );
+  --grad-deep-band: linear-gradient(
+    120deg,
+    #150a5e 0%,
+    #122a80 42%,
+    #0a3d9c 76%,
+    #0b53b8 100%
+  );
+  --grad-hero-glow:
+    radial-gradient(
+      ellipse 72% 58% at 78% -12%,
+      rgba(18, 181, 245, 0.13),
+      transparent 62%
+    ),
+    radial-gradient(
+      ellipse 56% 44% at 8% 110%,
+      rgba(10, 61, 156, 0.07),
+      transparent 64%
+    ),
+    linear-gradient(180deg, #fafaf9 0%, #f4f6f8 100%);
 
   /* Type */
   --font-sans: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
   --font-display: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
-  --font-mono: 'DM Sans', ui-monospace, monospace;
+  --font-mono: 'DM Mono', ui-monospace, 'SF Mono', 'JetBrains Mono', monospace;
 
-  --size-hero: clamp(2.5rem, 5.5vw, 4.25rem);
-  --size-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --size-display: clamp(2.8rem, 1.9rem + 4.6vw, 5.25rem);
+  --size-h2: clamp(1.9rem, 1.5rem + 2vw, 2.8rem);
   --size-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --size-lede: clamp(1.15rem, 1.02rem + 0.7vw, 1.5rem);
   --size-body: clamp(1rem, 1.1vw, 1.125rem);
   --size-label: 0.8125rem;
+  --size-mono-label: 0.75rem;
 
   /* Layout */
   --page-max: 72rem;
-  --page-pad: clamp(1.5rem, 4vw, 2.5rem);
-  --section-gap: clamp(5.5rem, 12vw, 9rem);
+  --page-pad: clamp(1.25rem, 4vw, 2.5rem);
+  --section-gap: clamp(6rem, 12vw, 9.5rem);
   --card-radius: 1rem;
   --btn-radius: 0.625rem;
 
@@ -54,11 +93,12 @@
   --duration-fast: 160ms;
   --duration-enter: 560ms;
 
-  /* Shadow */
-  --shadow-soft: 0 1px 2px rgba(11, 13, 18, 0.04),
-    0 8px 24px rgba(11, 13, 18, 0.04);
-  --shadow-lift: 0 4px 12px rgba(11, 13, 18, 0.06),
-    0 16px 40px rgba(10, 61, 156, 0.06);
+  /* Shadow — 多层轻柔影，仅作辅助层级 */
+  --shadow-soft: 0 1px 2px rgba(11, 13, 18, 0.03),
+    0 6px 20px rgba(11, 13, 18, 0.035);
+  --shadow-lift: 0 2px 6px rgba(11, 13, 18, 0.04),
+    0 14px 36px rgba(10, 61, 156, 0.08);
+  --shadow-band: 0 24px 64px -24px rgba(23, 11, 102, 0.45);
 }
 
 @media (prefers-reduced-motion: reduce) {
