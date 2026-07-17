@@ -1,0 +1,10 @@
+// Cloudflare 部署配置(Workers 静态资源模式,兼容 Pages 迁移)
+// 部署命令:npm run deploy(等价于 npm run build && wrangler deploy)
+{
+  "name": "ai-squad",
+  "compatibility_date": "2026-07-17",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "single-page-application"
+  }
+}

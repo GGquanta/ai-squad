@@ -1,0 +1,69 @@
+/* AI 研究小组设计 token — 浅色优雅方案，品牌点缀延续官网三蓝 */
+:root {
+  /* Brand blues (from GGQUANTA logo) */
+  --ink-navy: #170b66;
+  --royal: #0a3d9c;
+  --photon: #12b5f5;
+
+  /* Light surfaces */
+  --paper: #fafaf9;
+  --mist: #f4f6f8;
+  --cloud: #e8ecf1;
+  --frost: rgba(255, 255, 255, 0.72);
+
+  /* Text */
+  --graphite: #0b0d12;
+  --ink: #1a1f2e;
+  --slate: #5b6472;
+  --muted: #8a919c;
+
+  /* Semantic */
+  --color-bg: var(--paper);
+  --color-bg-alt: var(--mist);
+  --color-surface: #ffffff;
+  --color-text: var(--graphite);
+  --color-text-secondary: var(--slate);
+  --color-text-muted: var(--muted);
+  --color-accent: var(--photon);
+  --color-structure: var(--royal);
+  --color-deep: var(--ink-navy);
+  --color-border: rgba(11, 13, 18, 0.08);
+  --color-border-strong: rgba(11, 13, 18, 0.14);
+
+  /* Type */
+  --font-sans: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
+  --font-display: 'DM Sans', 'Noto Sans SC', system-ui, sans-serif;
+  --font-mono: 'DM Sans', ui-monospace, monospace;
+
+  --size-hero: clamp(2.5rem, 5.5vw, 4.25rem);
+  --size-h2: clamp(1.75rem, 3.2vw, 2.5rem);
+  --size-h3: clamp(1.25rem, 2vw, 1.5rem);
+  --size-body: clamp(1rem, 1.1vw, 1.125rem);
+  --size-label: 0.8125rem;
+
+  /* Layout */
+  --page-max: 72rem;
+  --page-pad: clamp(1.5rem, 4vw, 2.5rem);
+  --section-gap: clamp(5.5rem, 12vw, 9rem);
+  --card-radius: 1rem;
+  --btn-radius: 0.625rem;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --duration-fast: 160ms;
+  --duration-enter: 560ms;
+
+  /* Shadow */
+  --shadow-soft: 0 1px 2px rgba(11, 13, 18, 0.04),
+    0 8px 24px rgba(11, 13, 18, 0.04);
+  --shadow-lift: 0 4px 12px rgba(11, 13, 18, 0.06),
+    0 16px 40px rgba(10, 61, 156, 0.06);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --duration-fast: 0ms;
+    --duration-enter: 0ms;
+  }
+}
