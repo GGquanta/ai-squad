@@ -99,22 +99,27 @@ export const focusAreas = {
   items: [
     {
       title: '科研文献智能体',
+      label: 'Literature Agents',
       desc: '在规模化学术文献访问能力之上，构建多角色智能体工作流，覆盖检索、规划、证据综合、引用核查与分级受众表达。',
     },
     {
       title: '量子计算实验辅助',
+      label: 'Quantum Lab Assist',
       desc: '将大语言模型与量子计算知识、混合编程及实验全链路相结合，降低量子科研与教学门槛。',
     },
     {
       title: '科普与 STEM 数据工程',
+      label: 'STEM Data Engineering',
       desc: '建设面向科普和科研的监督微调数据体系，强调封闭上下文、事实校订与可审计血缘。',
     },
     {
       title: '文献知识结构化',
+      label: 'Knowledge Structuring',
       desc: '从论文正文到实体词典、文献—实体映射与知识图谱扩展，支撑领域术语一致性与检索增强生成。',
     },
     {
       title: '量子安全与 AI 协同',
+      label: 'Quantum Security × AI',
       desc: '在后量子密码、量子密钥分发等议题上，探索监测、测评与智能体安全通道等工程化路径。',
     },
   ],
