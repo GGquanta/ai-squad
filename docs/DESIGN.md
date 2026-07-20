@@ -85,12 +85,24 @@
 - Nav：当前区块 photon 下划线（IntersectionObserver），底缘 royal → photon 滚动进度线（rAF 节流）
 - 愿景区量子轨道 SVG 缓慢自转（72s 线性循环）
 - **禁止** Framer Motion `layout` / `layoutId`（团队已知坑）
-- `prefers-reduced-motion: reduce`：入场直接显示，粒子不渲染，呼吸点 / 滚动线 / 轨道自转 / 菜单错峰全部 no-op
+- `prefers-reduced-motion: reduce`：入场直接显示，Hero 文本流 / 愿景区粒子不渲染，呼吸点 / 滚动线 / 轨道自转 / 菜单错峰全部 no-op
 
-## 粒子
+## Hero 文本流（Token Stream）
 
-- 仅 Hero、愿景区（愿景区密度约为 Hero 一半，透明度更低）
-- 品牌蓝光点（photon ↔ royal 逐粒插值）+ 近距细线；画布边缘渐隐
+- 仅 Hero 背景；Canvas 等宽字体（DM Mono）可视化自回归 decode
+- 语料来自 `content.ts` 中 `heroTokenStream.excerpts`（Attention / GPT / BERT / Scaling Laws / RLHF 等经典论文短摘）
+- 桌面并行 **4–6** 条 decode 流（随视口宽度 4/5/6），横向均匀散布，右侧线性 mask 避开量子核
+- **每 token 三阶段**（概念映射）：
+  1. `compute`：块光标脉冲，格内 vocabulary 闪烁（logits / 前向计算）
+  2. `sample`：块光标内 top-k 候选垂直轮盘滚动减速，旁注淡显干扰项（nucleus / top-k 采样）
+  3. `settle`：选中字符落定闪白 → 提交进序列，块光标右移（append）
+- 句末 hold、整行 dissolve；词边界约 18% 概率拒绝采样回退再续写
+- 块状 photon 光标（非 `|`）；前缀 `δNN` 标识并行 decode head
+- 字符 photon ↔ royal 插值、渐显渐隐；移动端与 `prefers-reduced-motion` 不启用；离屏暂停；DPR 上限 2
+
+## 粒子（愿景区）
+
+- 仅愿景区；密度约为原 Hero 粒子一半，透明度更低
 - 空间网格近邻查找连线；指针轻微斥力（仅桌面，扰动后回归基础漂移）
 - 移动端与 `prefers-reduced-motion` 不启用；离屏与不可见标签页暂停
 - DPR 上限 2；密度按面积自适应

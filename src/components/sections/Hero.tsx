@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion'
 import type { ReactNode } from 'react'
-import { ParticleField } from '@/components/effects/ParticleField'
+import { TokenStreamField } from '@/components/effects/TokenStreamField'
 import { QuantumCore } from '@/components/effects/QuantumCore'
 import { IconArrowRight } from '@/components/icons'
 import { hero, siteMeta } from '@/data/content'
@@ -73,7 +73,7 @@ export function Hero() {
       style={{ backgroundImage: 'var(--grad-hero-glow)' }}
     >
       <div className="blueprint-grid absolute inset-0" aria-hidden />
-      <ParticleField className="opacity-80" />
+      <TokenStreamField className="opacity-40" />
 
       <div className="page-container relative flex min-h-[100svh] flex-col">
         {/* 右侧量子核：自研 Canvas 伪 3D，lg 以下隐藏 */}

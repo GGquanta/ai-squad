@@ -9,7 +9,8 @@
   └─ React App
        ├─ Nav / Footer
        ├─ Sections（Hero…JoinUs）
-       ├─ ParticleField（Canvas）
+       ├─ TokenStreamField（Hero Canvas 文本流）
+       ├─ ParticleField（愿景区 Canvas 粒子）
        └─ content.ts（数据）
 ```
 
@@ -27,6 +28,7 @@ ai-squad/
 │   ├── hooks/
 │   ├── styles/tokens.css / global.css
 │   └── components/
+│       ├── effects/TokenStreamField.tsx
 │       ├── effects/ParticleField.tsx
 │       ├── layout/
 │       └── sections/

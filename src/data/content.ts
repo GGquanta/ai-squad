@@ -28,6 +28,52 @@ export const hero = {
   scrollHint: 'Scroll',
 } as const
 
+/** Hero 背景 LLM 文本流语料：经典论文英文短摘，供 TokenStreamField 轮播 */
+export const heroTokenStream = {
+  excerpts: [
+    {
+      source: 'Attention Is All You Need (2017)',
+      text: 'Attention is all you need — we propose a new simple network architecture, the Transformer.',
+    },
+    {
+      source: 'Attention Is All You Need (2017)',
+      text: 'Multi-head attention allows the model to jointly attend to information from different positions.',
+    },
+    {
+      source: 'Attention Is All You Need (2017)',
+      text: 'Scaled dot-product attention computes compatibility between a query and all keys in the input.',
+    },
+    {
+      source: 'Improving Language Understanding by Generative Pre-Training (2018)',
+      text: 'Large gains can be realized by generative pre-training of a language model on a diverse corpus.',
+    },
+    {
+      source: 'Language Models are Unsupervised Multitask Learners (2019)',
+      text: 'GPT-2 demonstrates that language models trained on WebText acquire broad zero-shot capabilities.',
+    },
+    {
+      source: 'BERT: Pre-training of Deep Bidirectional Transformers (2019)',
+      text: 'BERT is designed to pre-train deep bidirectional representations from unlabeled text.',
+    },
+    {
+      source: 'BERT: Pre-training of Deep Bidirectional Transformers (2019)',
+      text: 'Masked language modeling enables the representation to fuse left and right context.',
+    },
+    {
+      source: 'Scaling Laws for Neural Language Models (2020)',
+      text: 'Loss scales as a power-law with model size, dataset size, and compute used for training.',
+    },
+    {
+      source: 'Training language models to follow instructions (2022)',
+      text: 'Aligning language models with human intent via reinforcement learning from human feedback.',
+    },
+    {
+      source: 'Chain-of-Thought Prompting (2022)',
+      text: 'Generating a chain of thought — a series of intermediate reasoning steps — improves performance.',
+    },
+  ],
+} as const
+
 export const team = {
   eyebrow: '关于我们',
   title: '一支年轻、专注、开放的研究小队',
