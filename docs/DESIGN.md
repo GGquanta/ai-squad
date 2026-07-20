@@ -71,8 +71,9 @@
 ## 图标
 
 - 界面图标：自绘 line 风格（24 网格、1.5px 描边、currentColor），见 `src/components/icons.tsx`
-- 产品图标：32 网格圆角砖底（极淡蓝渐变 + 发丝描边），royal 主线稿 + photon 点缀
-- 品牌记号 `LogoMark`：量子轨道 + 光子核，用于 Nav 与 Footer
+- 产品图标：`public/icons/{id}.png`（256²，卡片内 96×96 展示；中英文名位于图标右侧）
+- 小组标志 `LogoMark`：`public/brand/ai-squad.png`（Nav / Footer 品牌行 / favicon）
+- 公司标志 `CompanyMark`：`public/brand/ggquanta.svg`（Footer 公司名旁）
 
 ## 动效
 

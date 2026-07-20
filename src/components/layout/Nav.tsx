@@ -76,7 +76,7 @@ export function Nav() {
           className="flex items-center gap-2.5 text-[var(--color-deep)]"
           onClick={() => setOpen(false)}
         >
-          <LogoMark className="h-6 w-6" />
+          <LogoMark className="h-7 w-7 object-contain" />
           <span className="text-[0.95rem] font-semibold tracking-[-0.01em]">
             {siteMeta.brandShort}
           </span>

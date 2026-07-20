@@ -19,7 +19,8 @@
 ai-squad/
 ├── AGENTS.md / README.md
 ├── docs/
-├── public/icons/
+├── public/brand/          # 公司/小组标志（ggquanta、ai-squad）
+├── public/icons/          # 产品占位图标
 ├── src/
 │   ├── App.tsx / main.tsx
 │   ├── data/content.ts

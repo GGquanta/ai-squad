@@ -1,4 +1,4 @@
-import { IconArrowUpRight, LogoMark } from '@/components/icons'
+import { CompanyMark, IconArrowUpRight, LogoMark } from '@/components/icons'
 import { footer, navLinks, siteMeta } from '@/data/content'
 
 export function Footer() {
@@ -12,17 +12,17 @@ export function Footer() {
         <div className="mt-12 flex flex-col gap-12 border-t border-[var(--hairline)] pt-12 md:flex-row md:items-start md:justify-between">
           <div className="max-w-sm">
             <div className="flex items-center gap-2.5 text-[var(--color-deep)]">
-              <LogoMark className="h-6 w-6" />
+              <LogoMark className="h-7 w-7 object-contain" />
               <p className="text-[1.02rem] font-semibold tracking-[-0.01em]">
                 {siteMeta.brand}
               </p>
             </div>
-            <p className="mt-3 text-[0.9rem] text-[var(--color-text-secondary)]">
-              {siteMeta.company}
-            </p>
-            <p className="mt-5 text-[0.85rem] leading-relaxed text-[var(--color-text-muted)]">
-              {footer.note}
-            </p>
+            <div className="mt-4 flex items-center gap-2.5">
+              <CompanyMark className="h-5 w-5 object-contain" />
+              <p className="text-[0.9rem] text-[var(--color-text-secondary)]">
+                {siteMeta.company}
+              </p>
+            </div>
           </div>
 
           <div className="grid grid-cols-2 gap-x-16 gap-y-4">

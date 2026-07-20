@@ -283,10 +283,11 @@
     font-variant-numeric: tabular-nums;
   }
 
-  /* 荧光笔式注记：文字下半浮起 photon 淡彩 */
+  /* 荧光笔式注记：小字号 + 文字下半浮起 photon 淡彩 */
   .hl-note {
     padding: 0.05em 0.16em;
     margin-inline: 0.05em;
+    font-size: 0.78em;
     font-weight: 500;
     color: var(--color-text);
     background-image: linear-gradient(

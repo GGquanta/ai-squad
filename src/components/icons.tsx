@@ -125,32 +125,32 @@ export function IconOpenSource({ className }: IconProps) {
   )
 }
 
-/** 品牌记号：量子轨道 + 光子核 */
+/** AI 研究小组标志（彩色位图/矢量，见 public/brand/） */
 export function LogoMark({ className }: IconProps) {
   return (
-    <svg viewBox="0 0 28 28" fill="none" className={className} aria-hidden="true">
-      <ellipse
-        cx="14"
-        cy="14"
-        rx="11"
-        ry="4.6"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        transform="rotate(-28 14 14)"
-        opacity="0.9"
-      />
-      <ellipse
-        cx="14"
-        cy="14"
-        rx="11"
-        ry="4.6"
-        stroke="currentColor"
-        strokeWidth="1.4"
-        transform="rotate(62 14 14)"
-        opacity="0.38"
-      />
-      <circle cx="14" cy="14" r="2.7" fill="var(--photon, #12b5f5)" />
-      <circle cx="23.6" cy="8.9" r="1.5" fill="currentColor" />
-    </svg>
+    <img
+      src="/brand/ai-squad.png"
+      alt=""
+      width={24}
+      height={24}
+      className={className}
+      aria-hidden="true"
+      draggable={false}
+    />
+  )
+}
+
+/** 国光量子公司标志 */
+export function CompanyMark({ className }: IconProps) {
+  return (
+    <img
+      src="/brand/ggquanta.svg"
+      alt=""
+      width={24}
+      height={24}
+      className={className}
+      aria-hidden="true"
+      draggable={false}
+    />
   )
 }

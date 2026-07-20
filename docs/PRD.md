@@ -7,7 +7,7 @@
 ## 受众
 
 - 潜在合作方与访客：快速理解团队方向与产品矩阵
-- 候选人：了解培养计划、工作方式与在招方向
+- 候选人：了解培养计划与工作方式
 - 内部协作：以文档与内容文件作为可维护的单一事实来源
 
 ## 信息架构（单页锚点）
@@ -17,7 +17,7 @@
 3. **职责介绍**：五个研究方向 + 核心目标
 4. **核心产品**：小光、夸米、玄幂、量库、AI 课堂、引墨（图标 / 标签 / 简介）
 5. **发展愿景**：量子 × AI 双向协同与未来产业交叉融合
-6. **加入我们**：培养三阶段（时间线）、文化亮点、在招方向、联系说明与深蓝 CTA 横幅（含团队 GitHub 入口）
+6. **加入我们**：培养三阶段（时间线）、文化亮点、联系说明与深蓝 CTA 横幅（含团队 GitHub 入口）
 7. **Footer**：公司信息、导航、GitHub
 
 ## 内容口径（事实来源）
@@ -38,7 +38,9 @@
 
 | 素材 | 路径 | 说明 |
 | --- | --- | --- |
-| 产品图标 | `public/icons/{id}.svg` | 占位可替换；id 见 content.ts |
+| 产品图标 | `public/icons/{id}.png` | 六产品正式图标（256²）；id 见 content.ts |
+| 小组标志 | `public/brand/ai-squad.{png,svg}` | Nav / Footer / favicon |
+| 公司标志 | `public/brand/ggquanta.svg` | Footer 公司信息 |
 | 文案 | `src/data/content.ts` | 唯一内容源 |
 
 产品 id：`smartx` / `quantamate` / `xenomi` / `linkcorpus` / `classroom` / `inkmote`

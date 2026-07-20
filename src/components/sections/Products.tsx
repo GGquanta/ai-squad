@@ -21,24 +21,27 @@ export function Products() {
         {products.items.map((product, index) => (
           <Reveal key={product.id} delay={index * 0.04} className="h-full">
             <article className="card gradient-ring group flex h-full flex-col p-6 shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-[var(--duration-fast)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]">
-              <div className="flex items-start justify-between gap-4">
+              <div className="flex items-center gap-4">
                 <img
                   src={product.icon}
                   alt=""
-                  width={48}
-                  height={48}
-                  className="h-12 w-12 rounded-xl transition-transform duration-[var(--duration-fast)] ease-[var(--ease-out)] group-hover:scale-105"
+                  width={96}
+                  height={96}
+                  className="h-24 w-24 shrink-0 rounded-2xl object-contain transition-transform duration-[var(--duration-fast)] ease-[var(--ease-out)] group-hover:scale-105"
+                  loading="lazy"
+                  decoding="async"
                 />
-                <span className="mono-label pt-1 text-[var(--color-text-muted)] transition-colors duration-[var(--duration-fast)] group-hover:text-[var(--color-structure)]">
-                  {product.nameEn}
-                </span>
+                <div className="min-w-0">
+                  <h3 className="text-[1.22rem] font-semibold tracking-[-0.02em] text-[var(--color-text)]">
+                    {product.name}
+                  </h3>
+                  <p className="mono-label mt-1.5 text-[var(--color-text-muted)] transition-colors duration-[var(--duration-fast)] group-hover:text-[var(--color-structure)]">
+                    {product.nameEn}
+                  </p>
+                </div>
               </div>
 
-              <h3 className="mt-5 text-[1.22rem] font-semibold tracking-[-0.02em] text-[var(--color-text)]">
-                {product.name}
-              </h3>
-
-              <p className="mt-2.5 flex-1 text-[0.95rem] leading-[1.75] text-[var(--color-text-secondary)]">
+              <p className="mt-5 flex-1 text-[0.95rem] leading-[1.75] text-[var(--color-text-secondary)]">
                 {product.summary}
               </p>
 

@@ -38,9 +38,9 @@ export const team = {
   playful: {
     prefix: '我们是',
     segments: [
-      { brands: 'Anthropic、OpenAI', note: '忠实用户' },
-      { brands: 'GPT、DeepSeek 等模型', note: '长期订阅者' },
-      { brands: 'NVIDIA、Apple 等公司', note: '多年的产品使用方' },
+      { brands: 'Anthropic、OpenAI、Cursor', note: '忠实用户' },
+      { brands: 'GPT、DeepSeek、Seedance 等模型', note: '长期订阅者' },
+      { brands: 'NVIDIA、Apple、AMD 等公司', note: '多年产品使用方' },
     ],
   },
 } as const
@@ -75,9 +75,9 @@ export const focusAreas = {
   goals: {
     title: '当前核心目标',
     items: [
-      '完成科研文献知识库智能体的研发与交付',
-      '完成量子计算实验智能体的研发，并形成可对外展示的产品形态',
-      '建设企业级知识智能管理与检索平台',
+      '推动以大语言模型为代表的人工智能技术在量子科研领域的广泛应用',
+      '利用现代化 AI 工具加快量子产业的产品化、工程化和智能化步伐',
+      '探索量子计算与人工智能在算法基座和系统构建方面的深度融合',
     ],
   },
 } as const
@@ -109,16 +109,16 @@ export const products: {
       tags: ['企业办公', '多智能体', '桌面客户端'],
       summary:
         '基于 OpenClaw 的企业级智能办公桌面客户端，将命令行式 AI 编排转化为图形化、可扩展的日常办公体验。',
-      icon: '/icons/smartx.svg',
+      icon: '/icons/smartx.png',
     },
     {
       id: 'quantamate',
       name: '夸米',
       nameEn: 'QuantaMate',
-      tags: ['量子科研', '工作台', 'OpenClaw'],
+      tags: ['量子科研', '工作台', '多智能体'],
       summary:
         '面向量子科研的多智能体研究操作系统，把文献、设计、编程、提交、分析与报告串成可验收的流水线。',
-      icon: '/icons/quantamate.svg',
+      icon: '/icons/quantamate.png',
     },
     {
       id: 'xenomi',
@@ -127,7 +127,7 @@ export const products: {
       tags: ['领域大模型', '可溯源', '私有化'],
       summary:
         '可私有化、可溯源、可审计的领域大语言模型家族，把 AI 写作从开放域对话升级为在证据链内交付材料。',
-      icon: '/icons/xenomi.svg',
+      icon: '/icons/xenomi.png',
     },
     {
       id: 'linkcorpus',
@@ -136,7 +136,7 @@ export const products: {
       tags: ['文献知识库', 'Agentic RAG', '多模态'],
       summary:
         '基于数千万级科研文献接口的知识基础设施，为智能体与垂类模型提供可溯源、可扩展的文献证据池。',
-      icon: '/icons/linkcorpus.svg',
+      icon: '/icons/linkcorpus.png',
     },
     {
       id: 'classroom',
@@ -145,7 +145,7 @@ export const products: {
       tags: ['知识分享', '协同流程', '最佳实践'],
       summary:
         '团队 AI 协同办公与开发赋能经验的知识分享站，以可检索、可投稿的方式沉淀工具使用与协作方法。',
-      icon: '/icons/classroom.svg',
+      icon: '/icons/classroom.png',
     },
     {
       id: 'inkmote',
@@ -154,7 +154,7 @@ export const products: {
       tags: ['文档全链路', '采编发', '深度排版'],
       summary:
         '以可追溯多智能体工作流覆盖撰写、优化、排版与发布，把文书生产升级为可监视、可管理的流水线。',
-      icon: '/icons/inkmote.svg',
+      icon: '/icons/inkmote.png',
     },
   ],
 }
@@ -213,16 +213,6 @@ export const join = {
     { title: '月度成果演示', desc: '每月一次展示产出、学习心得与改进思考。' },
     { title: '开源回馈', desc: '在合规与知识产权策略允许时，将成果以开源形式发布。' },
   ],
-  roles: [
-    {
-      title: '全栈开发工程师（前端方向）',
-      focus: '智能体产品的界面、可视化与端到端体验，兼顾组件化工程与轻量服务贯通。',
-    },
-    {
-      title: '智能体研发工程师（后端方向）',
-      focus: '智能体服务与数据链路的方案设计与实现，覆盖接口契约、编排与可观测性。',
-    },
-  ],
   cta: {
     tag: 'Join the Squad',
     label: '了解岗位详情',
@@ -232,7 +222,6 @@ export const join = {
 } as const
 
 export const footer = {
-  note: '本页面用于团队介绍与能力展示，不构成对具体产品交付日期或商务条款的承诺。',
   columns: {
     nav: '页面导航',
     connect: '联系与关注',

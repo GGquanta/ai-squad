@@ -78,30 +78,6 @@ export function JoinUs() {
         })}
       </div>
 
-      {/* 在招方向 */}
-      <div className="mt-16 grid gap-4 md:grid-cols-2">
-        {join.roles.map((role, index) => (
-          <Reveal key={role.title} delay={index * 0.05} className="h-full">
-            <article className="card group h-full p-6 shadow-[var(--shadow-soft)] transition-[transform,box-shadow] duration-[var(--duration-fast)] ease-[var(--ease-out)] hover:-translate-y-0.5 hover:shadow-[var(--shadow-lift)]">
-              <div className="flex items-start justify-between gap-4">
-                <h3 className="text-[1.15rem] font-semibold tracking-[-0.02em]">
-                  {role.title}
-                </h3>
-                <span
-                  className="mono-label pt-1.5 text-[var(--color-text-muted)]"
-                  aria-hidden
-                >
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </div>
-              <p className="mt-3 text-[0.95rem] leading-[1.75] text-[var(--color-text-secondary)]">
-                {role.focus}
-              </p>
-            </article>
-          </Reveal>
-        ))}
-      </div>
-
       {/* 全页唯一深色点睛：深海蓝 CTA 横幅，左文右钮编辑式布局 */}
       <Reveal delay={0.08}>
         <div
