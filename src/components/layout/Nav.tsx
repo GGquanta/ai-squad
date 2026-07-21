@@ -39,7 +39,6 @@ export function Nav() {
       .map((id) => document.getElementById(id))
       .filter((el): el is HTMLElement => el !== null)
 
-    // 视口中线附近的区块视为当前区块
     const observer = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
@@ -62,6 +61,15 @@ export function Nav() {
     }
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [open])
+
   // 桌面断点以上关闭移动菜单，避免横竖屏切换后 body 仍锁滚动
   useEffect(() => {
     const mq = window.matchMedia('(min-width: 768px)')
@@ -73,15 +81,26 @@ export function Nav() {
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
-  // 滚动后或菜单展开时进入悬浮药丸形态，避免贴顶通栏露缝
-  const pill = scrolled || open
+  const floating = scrolled || open
+  const compactBar = floating
 
   return (
-    <header className={`site-nav ${pill ? 'site-nav--pill' : ''}`}>
+    <header
+      className={`site-nav${floating ? ' site-nav--float' : ''}${open ? ' site-nav--open' : ''}`}
+    >
+      {open ? (
+        <button
+          type="button"
+          className="site-nav__scrim md:hidden"
+          aria-label="关闭菜单"
+          onClick={() => setOpen(false)}
+        />
+      ) : null}
+
       <div className="site-nav__shell">
         <div
-          className={`page-container flex items-center justify-between ${
-            pill ? 'h-12 md:h-14' : 'h-16 md:h-[4.25rem]'
+          className={`site-nav__bar page-container flex items-center justify-between ${
+            compactBar ? 'h-12 md:h-14' : 'h-16 md:h-[4.25rem]'
           }`}
         >
           <a
@@ -123,26 +142,25 @@ export function Nav() {
 
           <button
             type="button"
-            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-[var(--btn-radius)] md:hidden"
+            className="relative z-50 flex h-10 w-10 items-center justify-center rounded-full md:hidden"
             aria-label={open ? '关闭菜单' : '打开菜单'}
             aria-expanded={open}
+            aria-controls="mobile-nav-panel"
             onClick={() => setOpen((v) => !v)}
           >
             <span className="sr-only">{open ? '关闭' : '菜单'}</span>
-            <span className="flex w-5 flex-col gap-1.5">
+            <span className="flex w-5 flex-col gap-[5px]">
               <span
-                className={`h-0.5 w-full rounded-full bg-[var(--color-text)] transition-transform duration-200 ${
-                  open ? 'translate-y-2 rotate-45' : ''
+                className={`site-nav__burger-line ${
+                  open ? 'translate-y-[7px] rotate-45' : ''
                 }`}
               />
               <span
-                className={`h-0.5 w-full rounded-full bg-[var(--color-text)] transition-opacity duration-200 ${
-                  open ? 'opacity-0' : ''
-                }`}
+                className={`site-nav__burger-line ${open ? 'opacity-0 scale-x-50' : ''}`}
               />
               <span
-                className={`h-0.5 w-full rounded-full bg-[var(--color-text)] transition-transform duration-200 ${
-                  open ? '-translate-y-2 -rotate-45' : ''
+                className={`site-nav__burger-line ${
+                  open ? '-translate-y-[7px] -rotate-45' : ''
                 }`}
               />
             </span>
@@ -150,8 +168,61 @@ export function Nav() {
         </div>
 
         <div
-          className={`absolute bottom-0 h-px overflow-hidden ${
-            pill ? 'inset-x-5' : 'inset-x-0'
+          id="mobile-nav-panel"
+          className="site-nav__panel md:hidden"
+          aria-hidden={!open}
+          inert={open ? undefined : true}
+        >
+          <div className="site-nav__panel-inner">
+            <div className="site-nav__divider" aria-hidden />
+            <nav
+              className="site-nav__panel-nav page-container"
+              aria-label="移动导航"
+            >
+              {navLinks.map((link, index) => {
+                const isActive = active === link.id
+                return (
+                  <a
+                    key={link.id}
+                    href={`#${link.id}`}
+                    className={`site-nav__link${open ? ' nav-item-in' : ''}`}
+                    style={
+                      open
+                        ? { animationDelay: `${80 + index * 42}ms` }
+                        : undefined
+                    }
+                    aria-current={isActive ? 'true' : undefined}
+                    tabIndex={open ? 0 : -1}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span
+                      className={
+                        isActive
+                          ? 'font-medium text-[var(--color-structure)]'
+                          : undefined
+                      }
+                    >
+                      {link.label}
+                    </span>
+                    <span
+                      className={`mono-label ${
+                        isActive
+                          ? 'text-[var(--photon)]'
+                          : 'text-[var(--color-text-muted)]'
+                      }`}
+                    >
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+                  </a>
+                )
+              })}
+            </nav>
+          </div>
+        </div>
+
+        <div
+          className={`site-nav__progress ${
+            floating ? 'inset-x-5' : 'inset-x-0'
           }`}
           aria-hidden
         >
@@ -161,27 +232,6 @@ export function Nav() {
           />
         </div>
       </div>
-
-      {open ? (
-        <div className="site-nav__menu md:hidden">
-          <nav className="page-container flex flex-col py-3" aria-label="移动导航">
-            {navLinks.map((link, index) => (
-              <a
-                key={link.id}
-                href={`#${link.id}`}
-                className="nav-item-in flex items-center justify-between rounded-[var(--btn-radius)] px-3 py-3.5 text-[1.02rem] text-[var(--color-text)]"
-                style={{ animationDelay: `${index * 45}ms` }}
-                onClick={() => setOpen(false)}
-              >
-                <span>{link.label}</span>
-                <span className="mono-label text-[var(--color-text-muted)]">
-                  {String(index + 1).padStart(2, '0')}
-                </span>
-              </a>
-            ))}
-          </nav>
-        </div>
-      ) : null}
     </header>
   )
 }

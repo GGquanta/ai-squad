@@ -82,7 +82,7 @@
 - Hero 右侧「量子核」：自研 Canvas 伪 3D（fibonacci 点阵球 + 三轨道环 + 游动光子），缓慢自转 + 指针倾斜视差；lg 以下隐藏，离屏暂停，reduced-motion 呈静态帧；不引入 three.js
 - 入场：opacity + translateY(14–16px)，约 560–700ms，IntersectionObserver 触发一次
 - Hover：约 160ms；行列表 hover 位移 + 序号变 photon + 行尾箭头浮现；按钮箭头微位移
-- Nav：页顶为全宽透明条；滚动后收缩为悬浮药丸（左右/顶留白、大圆角、纸感底 + 轻投影 + 细发丝边），从形态上消解 iOS Safari 顶栏贴边露缝的割裂感；当前区块 photon 下划线（IntersectionObserver）；底缘 royal → photon 滚动进度线（rAF 节流）；移动端展开菜单为药丸下方独立圆角面板
+- Nav：页顶为全宽透明条；滚动后收缩为悬浮药丸（左右/顶留白、胶囊圆角、纸感底 + 轻投影 + 细发丝边）；窄屏展开时在**同一圆角容器内**向下延展菜单（圆角由胶囊过渡为 ~1.35rem 面板），菜单项 opacity + translateY 错峰入场，并带淡 scrim；禁止拆成上下两块卡片；当前区块 photon 下划线；底缘滚动进度线（展开时隐藏）
 - 愿景区量子轨道 SVG 缓慢自转（72s 线性循环）
 - **禁止** Framer Motion `layout` / `layoutId`（团队已知坑）
 - `prefers-reduced-motion: reduce`：入场直接显示，Hero 文本流 / 愿景区粒子不渲染，呼吸点 / 滚动线 / 轨道自转 / 菜单错峰全部 no-op
