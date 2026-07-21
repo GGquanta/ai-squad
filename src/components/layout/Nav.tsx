@@ -61,6 +61,19 @@ export function Nav() {
     }
   }, [open])
 
+  // 展开时让主内容与页脚 inert，避免 Tab 焦逃到遮罩后方
+  useEffect(() => {
+    const main = document.querySelector('main')
+    const footer = document.querySelector('footer')
+    if (!open) return
+    main?.setAttribute('inert', '')
+    footer?.setAttribute('inert', '')
+    return () => {
+      main?.removeAttribute('inert')
+      footer?.removeAttribute('inert')
+    }
+  }, [open])
+
   useEffect(() => {
     if (!open) return
     const onKey = (event: KeyboardEvent) => {
