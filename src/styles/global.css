@@ -626,7 +626,8 @@
   .site-nav__panel,
   .site-nav__panel-inner,
   .site-nav__progress,
-  .site-nav__burger-line {
+  .site-nav__burger-line,
+  .site-nav__divider {
     transition: none !important;
   }
 
