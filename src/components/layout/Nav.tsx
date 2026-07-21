@@ -62,12 +62,23 @@ export function Nav() {
     }
   }, [open])
 
+  // 桌面断点以上关闭移动菜单，避免横竖屏切换后 body 仍锁滚动
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 768px)')
+    const onChange = () => {
+      if (mq.matches) setOpen(false)
+    }
+    onChange()
+    mq.addEventListener('change', onChange)
+    return () => mq.removeEventListener('change', onChange)
+  }, [])
+
   // 滚动后或菜单展开时进入悬浮药丸形态，避免贴顶通栏露缝
   const pill = scrolled || open
 
   return (
     <header className={`site-nav ${pill ? 'site-nav--pill' : ''}`}>
-      <div className={`site-nav__shell ${pill ? '' : 'bg-transparent'}`}>
+      <div className="site-nav__shell">
         <div
           className={`page-container flex items-center justify-between ${
             pill ? 'h-12 md:h-14' : 'h-16 md:h-[4.25rem]'
