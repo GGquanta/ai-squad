@@ -94,12 +94,19 @@ export function Nav() {
     return () => mq.removeEventListener('change', onChange)
   }, [])
 
+  // 悬浮形态仅由 CSS 在 <md 生效；桌面只用 scrolled 通栏实心底
   const floating = scrolled || open
-  const compactBar = floating
 
   return (
     <header
-      className={`site-nav${floating ? ' site-nav--float' : ''}${open ? ' site-nav--open' : ''}`}
+      className={[
+        'site-nav',
+        scrolled ? 'site-nav--scrolled' : '',
+        floating ? 'site-nav--float' : '',
+        open ? 'site-nav--open' : '',
+      ]
+        .filter(Boolean)
+        .join(' ')}
     >
       {open ? (
         <button
@@ -112,8 +119,8 @@ export function Nav() {
 
       <div className="site-nav__shell">
         <div
-          className={`site-nav__bar page-container flex items-center justify-between ${
-            compactBar ? 'h-12 md:h-14' : 'h-16 md:h-[4.25rem]'
+          className={`site-nav__bar page-container flex h-16 items-center justify-between md:h-[4.25rem] ${
+            floating ? 'max-md:h-12' : ''
           }`}
         >
           <a
@@ -233,12 +240,7 @@ export function Nav() {
           </div>
         </div>
 
-        <div
-          className={`site-nav__progress ${
-            floating ? 'inset-x-5' : 'inset-x-0'
-          }`}
-          aria-hidden
-        >
+        <div className="site-nav__progress" aria-hidden>
           <div
             ref={progressRef}
             className="h-full origin-left scale-x-0 bg-[linear-gradient(90deg,var(--royal),var(--photon))]"
