@@ -108,7 +108,7 @@
 }
 
 @layer components {
-  /* 顶栏外壳：页顶通栏 ↔ 滚动后悬浮药丸 */
+  /* 顶栏：页顶通栏 ↔ 悬浮药丸 ↔ 窄屏同壳展开菜单 */
   .site-nav {
     position: fixed;
     inset-inline: 0;
@@ -116,43 +116,149 @@
     z-index: 50;
     padding-inline: 0;
     padding-top: 0;
-    transition:
-      padding var(--duration-enter) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out);
+    transition: padding var(--nav-morph-duration) var(--ease-out);
   }
 
-  .site-nav--pill {
+  .site-nav--float {
     padding-top: max(0.65rem, env(safe-area-inset-top, 0px));
     padding-right: max(0.75rem, env(safe-area-inset-right, 0px));
     padding-left: max(0.75rem, env(safe-area-inset-left, 0px));
   }
 
-  .site-nav__shell {
-    position: relative;
-    transition:
-      border-radius var(--duration-enter) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out),
-      box-shadow var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      backdrop-filter var(--duration-fast) var(--ease-out);
+  .site-nav__scrim {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+    background: rgba(11, 13, 18, 0.22);
+    -webkit-backdrop-filter: blur(3px);
+    backdrop-filter: blur(3px);
+    animation: nav-scrim-in 0.32s var(--ease-out) both;
   }
 
-  .site-nav--pill .site-nav__shell {
-    border: 1px solid var(--hairline);
+  .site-nav__shell {
+    position: relative;
+    z-index: 1;
+    border: 1px solid transparent;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    transition:
+      border-radius var(--nav-morph-duration) var(--ease-out),
+      background-color var(--nav-morph-duration) var(--ease-out),
+      box-shadow var(--nav-morph-duration) var(--ease-out),
+      border-color var(--nav-morph-duration) var(--ease-out),
+      backdrop-filter var(--nav-morph-duration) var(--ease-out);
+  }
+
+  .site-nav--float .site-nav__shell {
+    border-color: var(--hairline);
     border-radius: var(--nav-pill-radius);
     background: var(--nav-pill);
     box-shadow: var(--shadow-nav-pill);
-    -webkit-backdrop-filter: blur(18px);
-    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
   }
 
-  .site-nav__menu {
-    margin-top: 0.5rem;
+  /* 展开时同一容器圆角由胶囊过渡为面板 */
+  .site-nav--open .site-nav__shell {
+    border-radius: var(--nav-panel-radius);
+  }
+
+  .site-nav__bar {
+    position: relative;
+    z-index: 1;
+  }
+
+  /* grid 0fr→1fr：高度可插值，菜单与顶栏同壳生长 */
+  .site-nav__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows var(--nav-morph-duration) var(--ease-out);
+  }
+
+  .site-nav--open .site-nav__panel {
+    grid-template-rows: 1fr;
+  }
+
+  .site-nav__panel-inner {
     overflow: hidden;
-    border: 1px solid var(--hairline);
-    border-radius: 1.25rem;
-    background: var(--paper);
-    box-shadow: var(--shadow-nav-pill);
+    min-height: 0;
+    opacity: 0;
+    transition: opacity 0.3s var(--ease-out);
+  }
+
+  .site-nav--open .site-nav__panel-inner {
+    opacity: 1;
+  }
+
+  .site-nav__divider {
+    height: 1px;
+    margin-inline: 0.85rem;
+    background: var(--hairline);
+    transform: scaleX(0.92);
+    transform-origin: center;
+    opacity: 0;
+    transition:
+      opacity 0.28s var(--ease-out) 0.06s,
+      transform 0.42s var(--ease-out);
+  }
+
+  .site-nav--open .site-nav__divider {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+
+  .site-nav__panel-nav {
+    padding-block: 0.3rem 0.55rem;
+  }
+
+  .site-nav__link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 0.85rem;
+    padding: 0.85rem 0.85rem;
+    font-size: 1.02rem;
+    color: var(--color-text);
+    transition:
+      background-color var(--duration-fast) var(--ease-out),
+      color var(--duration-fast) var(--ease-out),
+      transform var(--duration-fast) var(--ease-out);
+  }
+
+  .site-nav__link:active {
+    background: var(--mist);
+    transform: scale(0.985);
+  }
+
+  .site-nav__progress {
+    position: absolute;
+    bottom: 0;
+    height: 1px;
+    overflow: hidden;
+    opacity: 1;
+    transition:
+      opacity var(--duration-fast) var(--ease-out),
+      inset-inline var(--nav-morph-duration) var(--ease-out);
+  }
+
+  .site-nav--open .site-nav__progress {
+    opacity: 0;
+  }
+
+  .site-nav__burger-line {
+    display: block;
+    height: 2px;
+    width: 100%;
+    border-radius: 999px;
+    background: var(--color-text);
+    transform-origin: center;
+    transition:
+      transform 0.28s var(--ease-out),
+      opacity 0.2s var(--ease-out);
   }
 
   /* 按钮体系：纵向渐变 + 顶部内高光 + 分层投影，hover 上浮、active 回落 */
@@ -452,9 +558,9 @@
     animation: orbit-spin 72s linear infinite;
   }
 
-  /* 移动端菜单项错峰入场 */
+  /* 移动端菜单项错峰入场（仅展开时挂载 class） */
   .nav-item-in {
-    animation: nav-item-in 0.4s var(--ease-out) both;
+    animation: nav-item-in 0.42s var(--ease-out) both;
   }
 }
 
@@ -489,7 +595,7 @@
 @keyframes nav-item-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
@@ -497,11 +603,35 @@
   }
 }
 
+@keyframes nav-scrim-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .eyebrow-dot::after,
   .scroll-line::after,
   .orbit-spin,
-  .nav-item-in {
+  .nav-item-in,
+  .site-nav__scrim {
     animation: none;
+  }
+
+  .site-nav,
+  .site-nav__shell,
+  .site-nav__panel,
+  .site-nav__panel-inner,
+  .site-nav__progress,
+  .site-nav__burger-line,
+  .site-nav__divider {
+    transition: none !important;
+  }
+
+  .site-nav__scrim {
+    opacity: 1;
   }
 }
