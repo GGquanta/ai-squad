@@ -10,6 +10,8 @@
   --mist: #f4f6f8;
   --cloud: #e8ecf1;
   --frost: rgba(255, 255, 255, 0.72);
+  /* 滚动后顶栏：略提高不透明度，减少 iOS Safari 半透底透出内容 */
+  --nav-solid: rgba(255, 255, 255, 0.92);
 
   /* Text */
   --graphite: #0b0d12;
