@@ -57,4 +57,4 @@ ai-squad/
 - 字体子集由 `@fontsource` 按字重引入，避免全量中文包膨胀过大（可后续再优化子集）
 - 图片目前为 SVG 图标；替换位图时建议提供 2x 并写死宽高
 - 锚点导航保留 `scroll-mt` / `scroll-padding-top` 以避开顶栏
-- 顶栏：页顶全宽透明；滚动后悬浮药丸；窄屏菜单用同一 `site-nav__shell` 内 `grid-template-rows` 展开（非独立第二卡片）
+- 顶栏：桌面全宽贴顶；**仅 `<md`** 滚动后悬浮圆角条，菜单在同一 shell 内 `grid-template-rows` 展开（展开前后圆角保持一致，避免裁切）
