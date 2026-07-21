@@ -24,6 +24,8 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
+    /* 锚点滚动避开固定顶栏（含 iOS safe-area） */
+    scroll-padding-top: calc(4.25rem + env(safe-area-inset-top, 0px));
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -106,6 +108,21 @@
 }
 
 @layer components {
+  /*
+   * 固定顶栏：iOS Safari 在地址栏伸缩 / 橡皮筋回弹时，fixed 元素与视口顶端
+   * 之间可能出现缝隙并透出下方内容。用伪元素向上铺不透明底色盖住该区域。
+   */
+  .site-nav--solid::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: max(100vh, 100dvh);
+    background: var(--paper);
+    pointer-events: none;
+  }
+
   /* 按钮体系：纵向渐变 + 顶部内高光 + 分层投影，hover 上浮、active 回落 */
   .btn {
     position: relative;

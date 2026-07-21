@@ -7,6 +7,7 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const [active, setActive] = useState<string | null>(null)
   const progressRef = useRef<HTMLDivElement>(null)
+  const headerRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
     let raf = 0
@@ -30,6 +31,36 @@ export function Nav() {
       cancelAnimationFrame(raf)
       window.removeEventListener('scroll', onScroll)
       window.removeEventListener('resize', onScroll)
+    }
+  }, [])
+
+  // iOS Safari：地址栏伸缩 / visualViewport 偏移时，固定顶栏可能离开视口顶端。
+  // 将 header 钉到 visualViewport 顶部，避免栏体与屏幕顶端之间露缝。
+  useEffect(() => {
+    const header = headerRef.current
+    const vv = window.visualViewport
+    if (!header || !vv) return
+
+    let raf = 0
+    const sync = () => {
+      raf = 0
+      const offset = vv.offsetTop
+      header.style.transform = offset ? `translate3d(0, ${offset}px, 0)` : ''
+    }
+    const onChange = () => {
+      if (!raf) raf = requestAnimationFrame(sync)
+    }
+
+    sync()
+    vv.addEventListener('resize', onChange)
+    vv.addEventListener('scroll', onChange)
+    window.addEventListener('scroll', onChange, { passive: true })
+    return () => {
+      cancelAnimationFrame(raf)
+      vv.removeEventListener('resize', onChange)
+      vv.removeEventListener('scroll', onChange)
+      window.removeEventListener('scroll', onChange)
+      header.style.transform = ''
     }
   }, [])
 
@@ -62,11 +93,14 @@ export function Nav() {
     }
   }, [open])
 
+  const solid = scrolled || open
+
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background,box-shadow,backdrop-filter] duration-[var(--duration-fast)] ${
-        scrolled || open
-          ? 'border-b border-[var(--hairline)] bg-[var(--frost)] shadow-[var(--shadow-soft)] backdrop-blur-xl'
+      ref={headerRef}
+      className={`site-nav fixed inset-x-0 top-0 z-50 pt-[env(safe-area-inset-top,0px)] transition-[background,box-shadow,backdrop-filter] duration-[var(--duration-fast)] ${
+        solid
+          ? 'site-nav--solid border-b border-[var(--hairline)] bg-[var(--nav-solid)] shadow-[var(--shadow-soft)] backdrop-blur-xl'
           : 'bg-transparent'
       }`}
     >

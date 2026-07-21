@@ -56,4 +56,5 @@ ai-squad/
 
 - 字体子集由 `@fontsource` 按字重引入，避免全量中文包膨胀过大（可后续再优化子集）
 - 图片目前为 SVG 图标；替换位图时建议提供 2x 并写死宽高
-- 锚点导航保留 `scroll-mt` 以避开固定顶栏
+- 锚点导航保留 `scroll-mt` / `scroll-padding-top` 以避开固定顶栏（含 `safe-area-inset-top`）
+- 顶栏：`viewport-fit=cover` + `env(safe-area-inset-top)`；滚动实心底用伪元素向上铺色，并用 `visualViewport` 钉住，规避 iOS Safari fixed 顶缝
