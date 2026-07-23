@@ -85,7 +85,7 @@ export const team = {
     prefix: '我们是',
     segments: [
       { brands: 'Anthropic、OpenAI、Cursor', note: '忠实用户' },
-      { brands: 'GPT、DeepSeek、Seedance 等模型', note: '长期订阅者' },
+      { brands: 'GPT、DeepSeek、Claude 等模型', note: '长期订阅者' },
       { brands: 'NVIDIA、Apple、AMD 等公司', note: '多年产品使用方' },
     ],
   },
